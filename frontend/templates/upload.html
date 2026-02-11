@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDFアップロード - Financial Statement Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Financial Statement Analyzer</h1>
+            <p class="subtitle"><a href="/">← トップに戻る</a></p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <h2>決算書PDFをアップロード</h2>
+                <p>有価証券報告書、決算短信などのPDFファイルを選択してください。</p>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>ここにファイルをドラッグ＆ドロップ</p>
+                        <p class="upload-hint">または</p>
+                        <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+                        <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                            ファイルを選択
+                        </button>
+                        <p class="file-info">対応形式: PDF（最大10MB）</p>
+                    </div>
+                </div>
+
+                <div id="fileInfo" class="file-info-display" style="display: none;">
+                    <p>選択されたファイル: <span id="fileName"></span></p>
+                    <p>ファイルサイズ: <span id="fileSize"></span></p>
+                </div>
+
+                <button id="uploadBtn" class="btn btn-primary" style="display: none;">
+                    分析を開始
+                </button>
+
+                <div id="uploadProgress" class="progress" style="display: none;">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div id="message" class="message"></div>
+            </section>
+
+            <section class="info-section">
+                <h3>注意事項</h3>
+                <ul>
+                    <li>PDFファイルは最大10MBまでアップロード可能です</li>
+                    <li>テキスト形式のPDFのみ対応しています（スキャンPDFは非対応）</li>
+                    <li>標準的な財務諸表フォーマットを想定しています</li>
+                    <li>アップロードされたファイルは分析後に削除されます</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Financial Statement Analyzer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

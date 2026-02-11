@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析結果 - Financial Statement Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Financial Statement Analyzer</h1>
+            <p class="subtitle"><a href="/">← トップに戻る</a></p>
+        </header>
+
+        <main>
+            <section class="results-header">
+                <h2>分析結果</h2>
+                <p id="companyInfo">会社名: 読み込み中...</p>
+            </section>
+
+            <!-- KPI セクション -->
+            <section class="kpi-section">
+                <h2>💰 主要業績指標（KPI）</h2>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h4>売上高</h4>
+                        <p class="kpi-current" id="revenueKpi">-</p>
+                        <div class="kpi-comparison">
+                            <span class="kpi-previous" id="revenuePrevious">-</span>
+                            <span class="kpi-growth" id="revenueGrowth"></span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <h4>営業利益</h4>
+                        <p class="kpi-current" id="operatingIncomeKpi">-</p>
+                        <div class="kpi-comparison">
+                            <span class="kpi-previous" id="operatingIncomePrevious">-</span>
+                            <span class="kpi-growth" id="operatingIncomeGrowth"></span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <h4>当期純利益</h4>
+                        <p class="kpi-current" id="netIncomeKpi">-</p>
+                        <div class="kpi-comparison">
+                            <span class="kpi-previous" id="netIncomePrevious">-</span>
+                            <span class="kpi-growth" id="netIncomeGrowth"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 業績予想比較セクション -->
+            <section class="forecast-section" id="forecastSection" style="display: none;">
+                <h2>🎯 業績予想比較</h2>
+                <div class="forecast-grid">
+                    <div class="forecast-card" id="revenueForecastCard">
+                        <h4>売上高</h4>
+                        <div class="forecast-values">
+                            <p><span class="label">実績:</span> <span id="revenueActual">-</span></p>
+                            <p><span class="label">予想:</span> <span id="revenueForecast">-</span></p>
+                            <p class="achievement-rate"><span class="label">達成率:</span> <span id="revenueAchievement">-</span></p>
+                        </div>
+                        <p class="forecast-comment" id="revenueForecastComment"></p>
+                    </div>
+                    <div class="forecast-card" id="operatingIncomeForecastCard">
+                        <h4>営業利益</h4>
+                        <div class="forecast-values">
+                            <p><span class="label">実績:</span> <span id="operatingIncomeActual">-</span></p>
+                            <p><span class="label">予想:</span> <span id="operatingIncomeForecast">-</span></p>
+                            <p class="achievement-rate"><span class="label">達成率:</span> <span id="operatingIncomeAchievement">-</span></p>
+                        </div>
+                        <p class="forecast-comment" id="operatingIncomeForecastComment"></p>
+                    </div>
+                    <div class="forecast-card" id="netIncomeForecastCard">
+                        <h4>当期純利益</h4>
+                        <div class="forecast-values">
+                            <p><span class="label">実績:</span> <span id="netIncomeActual">-</span></p>
+                            <p><span class="label">予想:</span> <span id="netIncomeForecast">-</span></p>
+                            <p class="achievement-rate"><span class="label">達成率:</span> <span id="netIncomeAchievement">-</span></p>
+                        </div>
+                        <p class="forecast-comment" id="netIncomeForecastComment"></p>
+                    </div>
+                </div>
+                <div class="overall-evaluation" id="forecastOverallEval"></div>
+            </section>
+
+            <!-- 成長性分析セクション -->
+            <section class="growth-section" id="growthSection" style="display: none;">
+                <h2>📈 成長性分析</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>売上高成長率</h4>
+                        <p class="metric-value" id="revenueGrowthRate">-</p>
+                        <p class="metric-description">前期比成長率</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>営業利益成長率</h4>
+                        <p class="metric-value" id="operatingIncomeGrowthRate">-</p>
+                        <p class="metric-description">前期比成長率</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>純利益成長率</h4>
+                        <p class="metric-value" id="netIncomeGrowthRate">-</p>
+                        <p class="metric-description">前期比成長率</p>
+                    </div>
+                </div>
+                <div class="comments-box">
+                    <ul id="growthComments"></ul>
+                </div>
+                <div class="overall-evaluation" id="growthOverallEval"></div>
+            </section>
+
+            <!-- 経営陣コメントセクション -->
+            <section class="comments-section" id="commentsSection" style="display: none;">
+                <h2>💬 経営陣コメント（要約）</h2>
+                <div class="comment-box" id="managementBox" style="display: none;">
+                    <h4>📋 経営成績のポイント</h4>
+                    <div id="managementSummary" class="summary-text"></div>
+                </div>
+                <div class="comment-box" id="outlookBox" style="display: none;">
+                    <h4>🔮 今後の見通し</h4>
+                    <div id="outlookSummary" class="summary-text"></div>
+                </div>
+            </section>
+
+            <!-- 収益性分析 -->
+            <section class="analysis-section">
+                <h3>📈 収益性分析</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>ROE（自己資本利益率）</h4>
+                        <p class="metric-value" id="roe">-</p>
+                        <p class="metric-description">株主資本の運用効率</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>ROA（総資産利益率）</h4>
+                        <p class="metric-value" id="roa">-</p>
+                        <p class="metric-description">総資産の運用効率</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>売上高営業利益率</h4>
+                        <p class="metric-value" id="operatingMargin">-</p>
+                        <p class="metric-description">本業の収益力</p>
+                    </div>
+                </div>
+                <div class="comments" id="profitabilityComments"></div>
+            </section>
+
+            <!-- 安全性分析 -->
+            <section class="analysis-section">
+                <h3>🛡️ 安全性分析</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>自己資本比率</h4>
+                        <p class="metric-value" id="equityRatio">-</p>
+                        <p class="metric-description">財務の安定性</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>流動比率</h4>
+                        <p class="metric-value" id="currentRatio">-</p>
+                        <p class="metric-description">短期支払い能力</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>固定比率</h4>
+                        <p class="metric-value" id="fixedRatio">-</p>
+                        <p class="metric-description">固定資産の健全性</p>
+                    </div>
+                </div>
+                <div class="comments" id="safetyComments"></div>
+            </section>
+
+            <!-- 業績予想修正セクション -->
+            <section class="forecast-revision-section" id="forecastRevisionSection" style="display: none;">
+                <h2>📝 業績予想修正</h2>
+                <div id="forecastRevisionContent">
+                    <!-- 修正履歴がここに表示されます -->
+                </div>
+            </section>
+
+            <!-- グラフ表示 -->
+            <section class="charts-section">
+                <h2>📊 財務諸表の可視化</h2>
+                <div class="tabs">
+                    <button class="tab-button active" onclick="switchTab('overview')">総合</button>
+                    <button class="tab-button" onclick="switchTab('bs')">貸借対照表</button>
+                    <button class="tab-button" onclick="switchTab('pl')">損益計算書</button>
+                    <button class="tab-button" onclick="switchTab('cf')" id="cfTabButton" style="display: none;">キャッシュフロー</button>
+                </div>
+
+                <div id="tab-overview" class="tab-content active">
+                    <div class="chart-container">
+                        <canvas id="metricsChart"></canvas>
+                    </div>
+                </div>
+                <div id="tab-bs" class="tab-content">
+                    <div class="chart-container">
+                        <canvas id="bsPieChart"></canvas>
+                    </div>
+                </div>
+                <div id="tab-pl" class="tab-content">
+                    <div class="chart-container">
+                        <canvas id="plBarChart"></canvas>
+                    </div>
+                </div>
+                <div id="tab-cf" class="tab-content">
+                    <div class="chart-container">
+                        <canvas id="cfBarChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="actions">
+                <button class="btn btn-secondary" onclick="window.print()">レポートを印刷</button>
+                <a href="/upload" class="btn btn-primary">別のファイルを分析</a>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Financial Statement Analyzer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/financial_charts.js') }}"></script>
+</body>
+</html>

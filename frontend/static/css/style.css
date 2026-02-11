@@ -1,0 +1,957 @@
+/* リセットとベース */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background-color: #f7fafc;
+    font-weight: 400;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ヘッダー */
+header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.subtitle a {
+    color: white;
+    text-decoration: none;
+}
+
+.subtitle a:hover {
+    text-decoration: underline;
+}
+
+/* メインコンテンツ */
+main {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #667eea;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* 機能グリッド */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.feature-card {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.feature-card h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.cta {
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* アップロードエリア */
+.upload-area {
+    border: 2px dashed #667eea;
+    border-radius: 10px;
+    padding: 60px 20px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s;
+    margin: 20px 0;
+}
+
+.upload-area:hover {
+    background: #e9ecef;
+    border-color: #5568d3;
+}
+
+.upload-area.dragover {
+    background: #e7e9fc;
+    border-color: #667eea;
+}
+
+.upload-icon {
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.upload-hint {
+    color: #6c757d;
+    margin: 10px 0;
+}
+
+.file-info {
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.file-info-display {
+    background: #e7e9fc;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+/* プログレスバー */
+.progress {
+    width: 100%;
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0;
+    transition: width 0.3s;
+}
+
+/* メッセージ */
+.message {
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* 分析結果 */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 30px 0;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 28px 24px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.metric-card h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.metric-value {
+    font-size: 2.8em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 15px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.metric-description {
+    color: #718096;
+    font-size: 0.95em;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.comments {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.comments ul {
+    margin-left: 20px;
+}
+
+/* グラフ */
+.chart-container {
+    position: relative;
+    height: 500px;
+    margin: 30px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chart-container:hover {
+    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    margin-top: 40px;
+}
+
+/* KPIセクション */
+.kpi-section {
+    margin: 30px 0;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.kpi-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+}
+
+.kpi-card h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.kpi-current {
+    font-size: 2.8em;
+    font-weight: bold;
+    margin: 15px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.kpi-comparison {
+    font-size: 0.95em;
+    opacity: 0.95;
+    margin-top: 10px;
+}
+
+.kpi-previous {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.kpi-growth {
+    font-weight: bold;
+}
+
+/* 成長率の表示 */
+.growth-positive {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.growth-negative {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.kpi-card .growth-positive,
+.kpi-card .growth-negative {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+/* 業績予想比較セクション */
+.forecast-section {
+    margin: 30px 0;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.forecast-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #6c757d;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-card h4 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.forecast-values {
+    margin: 15px 0;
+}
+
+.forecast-values p {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forecast-values .label {
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.achievement-rate {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e9ecef;
+}
+
+.forecast-comment {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    font-size: 0.95em;
+    color: #495057;
+}
+
+/* 達成率による色分け */
+.achievement-high {
+    border-left-color: #28a745;
+}
+
+.achievement-high .achievement-rate {
+    color: #28a745;
+}
+
+.achievement-medium {
+    border-left-color: #ffc107;
+}
+
+.achievement-medium .achievement-rate {
+    color: #ffc107;
+}
+
+.achievement-low {
+    border-left-color: #dc3545;
+}
+
+.achievement-low .achievement-rate {
+    color: #dc3545;
+}
+
+/* 成長性分析セクション */
+.growth-section {
+    margin: 30px 0;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.growth-section .metric-value {
+    font-size: 2.2em;
+}
+
+.comments-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #667eea;
+}
+
+.comments-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comments-box li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.comments-box li:last-child {
+    border-bottom: none;
+}
+
+/* 総合評価 */
+.overall-evaluation {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+    border: 2px solid #667eea;
+    color: #667eea;
+}
+
+/* 経営陣コメントセクション */
+.comments-section {
+    margin: 30px 0;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.comment-box {
+    background: white;
+    border-left: 4px solid #667eea;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.comment-box h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.summary-text {
+    line-height: 1.8;
+    color: #495057;
+    white-space: pre-wrap;
+}
+
+/* タブ */
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin: 30px 0 20px;
+    padding: 6px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.tab-button {
+    padding: 14px 28px;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    color: #718096;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.tab-button:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+    transform: translateY(-1px);
+}
+
+.tab-button.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.tab-content {
+    display: none;
+    padding: 20px 0;
+    animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* チャートセクション */
+.charts-section {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.charts-section h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* レスポンシブ - タブレット */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        padding: 25px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    main {
+        padding: 20px 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .feature-grid,
+    .metrics-grid,
+    .kpi-grid,
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-current {
+        font-size: 2.2em;
+    }
+
+    .metric-value {
+        font-size: 2.2em;
+    }
+
+    /* タブ - 横スクロール対応 */
+    .tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px;
+    }
+
+    .tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-button {
+        font-size: 0.85em;
+        padding: 10px 16px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* グラフの高さ調整 */
+    .chart-container {
+        height: 350px;
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .charts-section {
+        padding: 15px;
+    }
+
+    .charts-section h2 {
+        font-size: 1.5em;
+    }
+
+    /* アップロードエリア */
+    .upload-area {
+        padding: 30px 15px;
+    }
+
+    /* ボタン */
+    .btn {
+        padding: 12px 20px;
+        font-size: 1em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .actions .btn {
+        margin: 0;
+    }
+
+    /* テーブルのスクロール対応 */
+    .revision-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .revision-table th,
+    .revision-table td {
+        padding: 8px;
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    .revision-card {
+        padding: 15px;
+    }
+
+    /* セクション内パディング調整 */
+    .forecast-section,
+    .growth-section,
+    .comments-section {
+        padding: 15px;
+    }
+
+    .forecast-card {
+        padding: 15px;
+    }
+
+    .comment-box {
+        padding: 15px;
+    }
+
+    .overall-evaluation {
+        font-size: 1em;
+        padding: 15px;
+    }
+
+    /* KPIカード */
+    .kpi-card {
+        padding: 20px;
+    }
+}
+
+/* レスポンシブ - スマホ（小型） */
+@media (max-width: 480px) {
+    .container {
+        padding: 6px;
+    }
+
+    header {
+        padding: 20px 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+    }
+
+    header h1 {
+        font-size: 1.2em;
+    }
+
+    .subtitle {
+        font-size: 0.85em;
+    }
+
+    main {
+        padding: 15px 10px;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .kpi-current {
+        font-size: 1.8em;
+    }
+
+    .kpi-card h4 {
+        font-size: 0.95em;
+    }
+
+    .metric-value {
+        font-size: 1.8em;
+    }
+
+    .metric-card {
+        padding: 20px 15px;
+    }
+
+    .metric-card h4 {
+        font-size: 1em;
+    }
+
+    .chart-container {
+        height: 280px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .upload-area {
+        padding: 25px 10px;
+    }
+
+    .upload-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .btn {
+        padding: 14px 16px;
+        font-size: 0.95em;
+    }
+
+    section {
+        margin-bottom: 25px;
+    }
+
+    .feature-card {
+        padding: 15px;
+    }
+
+    .how-to-use ol {
+        padding-left: 20px;
+    }
+
+    .info-section ul {
+        padding-left: 20px;
+    }
+
+    .forecast-values p {
+        font-size: 0.9em;
+    }
+
+    footer {
+        font-size: 0.85em;
+        padding: 15px 10px;
+    }
+}
+
+/* 業績予想修正セクション */
+.forecast-revision-section {
+    margin-bottom: 40px;
+}
+
+.revision-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.revision-card h3 {
+    color: #667eea;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+}
+
+.revision-date {
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.revision-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.revision-table thead {
+    background: #f8f9fa;
+}
+
+.revision-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #667eea;
+}
+
+.revision-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.revision-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.revision-table .positive {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.revision-table .negative {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.revision-table .neutral {
+    color: #6c757d;
+}
+
+.revision-reason {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.revision-reason h4 {
+    color: #667eea;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.revision-reason p {
+    color: #555;
+    line-height: 1.6;
+}

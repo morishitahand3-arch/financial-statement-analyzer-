@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Statement Analyzer - 企業決算書分析ツール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Financial Statement Analyzer</h1>
+            <p class="subtitle">企業決算書分析ツール</p>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h2>企業の財務諸表を理解しよう</h2>
+                <p>PDFファイルをアップロードするだけで、財務指標を自動計算し、わかりやすく解説します。</p>
+            </section>
+
+            <section class="features">
+                <h3>主な機能</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📈 収益性分析</h4>
+                        <p>ROE、ROA、営業利益率などを計算し、企業の稼ぐ力を評価します。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🛡️ 安全性分析</h4>
+                        <p>自己資本比率、流動比率などから、企業の財務安定性を診断します。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📊 成長性分析</h4>
+                        <p>売上高や利益の成長率を算出し、企業の成長力を見える化します。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ 効率性分析</h4>
+                        <p>資産回転率などから、経営の効率性を測定します。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta">
+                <a href="/upload" class="btn btn-primary">PDFをアップロードして分析開始</a>
+            </section>
+
+            <section class="how-to-use">
+                <h3>使い方</h3>
+                <ol>
+                    <li>企業の決算書（PDF形式）を用意する</li>
+                    <li>「PDFをアップロード」ボタンからファイルを選択</li>
+                    <li>自動的に分析が実行されます</li>
+                    <li>財務指標と解説が表示されます</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Financial Statement Analyzer. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

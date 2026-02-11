@@ -1,0 +1,24 @@
+# Webフレームワーク
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# PDF解析
+pdfplumber==0.11.0
+pypdf>=5.1.0
+pycryptodome>=3.23.0  # 暗号化されたPDFのサポート
+
+# データ処理（pandasは一旦なしで動作確認）
+# pandas>=2.2.0
+# numpy>=1.26.0
+
+# ファイル処理
+python-dotenv==1.0.0
+
+# テスト
+pytest==7.4.3
+
+# ユーティリティ
+python-dateutil==2.8.2
+
+# Claude API for comment summarization
+anthropic>=0.18.0
