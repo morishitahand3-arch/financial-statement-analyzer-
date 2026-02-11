@@ -3,7 +3,7 @@ services:
     name: financial-statement-analyzer
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --chdir backend app:app
+    startCommand: gunicorn --chdir backend app:app --timeout 120 --workers 1
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.0"

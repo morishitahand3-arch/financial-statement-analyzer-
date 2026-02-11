@@ -11,16 +11,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const response = await fetch(`/api/analyze/${filename}`);
+
+        // レスポンスがJSONかチェック
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            alert('サーバーからの応答が不正です。PDFの解析に時間がかかりすぎた可能性があります。\n小さいサイズのPDFで再度お試しください。');
+            window.location.href = '/upload';
+            return;
+        }
+
         const data = await response.json();
 
         if (response.ok) {
             displayResults(data);
         } else {
-            alert('分析結果の取得に失敗しました');
+            alert(data.error || '分析結果の取得に失敗しました');
             window.location.href = '/upload';
         }
     } catch (error) {
-        alert('エラーが発生しました: ' + error.message);
+        alert('分析中にエラーが発生しました。\nPDFのサイズが大きすぎる可能性があります。\n\n' + error.message);
         window.location.href = '/upload';
     }
 });
