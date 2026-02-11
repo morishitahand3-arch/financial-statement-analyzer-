@@ -30,15 +30,18 @@ class PDFParser:
 
     def extract_text(self) -> str:
         """
-        PDFからテキストを抽出
+        PDFからテキストを抽出（メモリ節約のため最大20ページに制限）
 
         Returns:
             抽出されたテキスト
         """
         text = ""
+        max_pages = 20
         try:
             reader = PdfReader(str(self.pdf_path))
-            for page in reader.pages:
+            for i, page in enumerate(reader.pages):
+                if i >= max_pages:
+                    break
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
@@ -61,15 +64,18 @@ class PDFParser:
 
     def extract_tables_with_pdfplumber(self) -> List[List[List[str]]]:
         """
-        pdfplumberで表データを抽出
+        pdfplumberで表データを抽出（メモリ節約のため最大10ページに制限）
 
         Returns:
             各ページの表データのリスト
         """
         tables = []
+        max_pages = 10  # メモリ節約のためページ数を制限
         try:
             with pdfplumber.open(str(self.pdf_path)) as pdf:
-                for page in pdf.pages:
+                for i, page in enumerate(pdf.pages):
+                    if i >= max_pages:
+                        break
                     page_tables = page.extract_tables()
                     if page_tables:
                         tables.extend(page_tables)
